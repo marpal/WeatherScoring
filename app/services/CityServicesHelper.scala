@@ -1,0 +1,48 @@
+package services
+
+object CityServicesHelper {
+  
+      val cityNames = List(
+      "Barcelona",
+      "Paris",
+      "Rome",
+      "Berlin",
+      "Amsterdam",
+      "Budapest",
+      "Lisbon",
+      "London",
+      "Porto",
+      "Budapest",
+      "Prague",
+      "Corfu",
+      "Cannes",
+      "Amsterdam",
+      "Madrid",
+      "Florence",
+      "Istanbul",
+      "Athens",
+      "Mykonos",
+      "Santorini",
+      "Crete",
+      "Siena",
+      "Monaco",
+      "Venice",
+      "Aix En Provence",
+      "Dubrovnik",
+      "Nice",
+      "Saint Tropez",
+      "Positano",
+      "Taormina",
+      "Oia",
+      "Biarritz",
+      "Carcassone",
+      "La Rochelle",
+      "Sardinia",
+      "Canary Islands",
+      "Hvar",
+      "Ibiza",
+      "Menorca",
+      "Majorca",
+      "Corsica")
+
+}
