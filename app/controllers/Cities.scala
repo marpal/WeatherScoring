@@ -5,6 +5,8 @@ import play.api.mvc.Controller
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
 import play.api.Logger
+import services.ForecastServices._
+import services.ForecastServices
 import models.City
 import services.CityServices
 import anorm._
@@ -33,6 +35,7 @@ object Cities extends Controller {
 
   def all = Action {
     val cities = City.getAll
+    ForecastServices.calculateForecastsScores(null)
     Ok(Json.toJson(cities))
   }
   

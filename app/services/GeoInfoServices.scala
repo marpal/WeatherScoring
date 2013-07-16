@@ -13,7 +13,7 @@ object GeoInfoServices {
    * Fetch Latitude & Longitude
    */
   def fetchCityLatitudeAndLongitude(address: String): Option[(Double, Double)] = {
-    implicit val timeout = Timeout(50000 milliseconds)
+    implicit val timeout = Timeout(5000 milliseconds)
     
     // Encoded the address in order to remove the spaces from the address (spaces will be replaced by '+')
     //@purpose There should be no spaces in the parameter values for a GET request

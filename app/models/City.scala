@@ -23,7 +23,7 @@ object City {
     ).toList  //#E
   }
   
-  def create(city: City): Unit = {
+  def insert(city: City): Unit = {
     DB.withConnection { 
       implicit connection =>
       SQL("insert into cities(name,latitude,longitude) values ({name},{latitude},{longitude})").on(

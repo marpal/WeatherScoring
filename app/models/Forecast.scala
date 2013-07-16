@@ -9,30 +9,44 @@ case class Forecast(
   id: Pk[Long],
   city: Long,
   date: Date,
+  temperatureMin: Double,
+  temperatureMax: Double,
+  humidity: Double,
   probRain: Double,
   cloudyRatio: Double,
-  summary: String)
+  wind:Double,
+  summary: String,
+  score:Double)
+  
 object Forecast {
 
   val sql: SqlQuery = SQL("select * from forecasts")
-  def getAll: List[Forecast] = DB.withConnection { //#A
-    implicit connection => //#B
-      sql().map(row => //#C
-        Forecast(row[Pk[Long]]("id"), row[Long]("city"), row[Date]("date"),
-          row[Double]("probRain"), row[Double]("cloudyRatio"),row[String]("summary")) //#D
-          ).toList //#E
+  def getAll: List[Forecast] = DB.withConnection {
+    implicit connection => 
+      sql().map(row => 
+        Forecast(row[Pk[Long]]("id"), row[Long]("city"), row[Date]("date"),row[Double]("temperatureMin"),
+          row[Double]("temperatureMax"),row[Double]("humidity"),row[Double]("probRain"), row[Double]("cloudyRatio"),
+          row[Double]("wind"),row[String]("summary"),row[Double]("score"))).toList
   }
   
 
-  def create(forecast: Forecast): Unit = {
+  def insert(forecast: Forecast): Unit = {
     DB.withConnection {
       implicit connection =>
-        SQL("insert into forecasts(city,date,probRain,cloudyRatio,summary) values ({city},{date},{probRain},{cloudyRatio},{summary})").on(
+        SQL("""insert into 
+            forecasts(city,date,temperatureMin,temperatureMax,humidity,probRain,cloudyRatio,wind,summary,score) 
+            values ({city},{date},{temperatureMin},{temperatureMax},{humidity},{probRain},{cloudyRatio},{wind},{summary},{score})"""
+            ).on(
           'city -> forecast.city,
           'date -> forecast.date,
+          'temperatureMin ->forecast.temperatureMin,
+          'temperatureMax ->forecast.temperatureMax,
+          'humidity ->forecast.humidity,
           'probRain -> forecast.probRain,
           'cloudyRatio -> forecast.cloudyRatio,
-          'summary -> forecast.summary).executeUpdate()
+          'wind -> forecast.wind,
+          'summary -> forecast.summary,
+          'score ->forecast.score).executeUpdate()
     }
   }
 
