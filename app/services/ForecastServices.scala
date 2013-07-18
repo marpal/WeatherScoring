@@ -34,7 +34,7 @@ object ForecastServices {
 
     City.getAllCitiesWithForecasts.map {
       case (key, value) => (key, getAverageScore(value), value)
-    }.toList.sortBy(_._2)
+    }.toList.sortBy(-_._2).take(20)
   }
   
 

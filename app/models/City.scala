@@ -8,6 +8,7 @@ import anorm.~
 import anorm.RowParser
 import anorm.ResultSetParser
 
+
 case class City(
   id: Pk[Long],
   name: String,
