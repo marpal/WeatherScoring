@@ -4,7 +4,7 @@
 
 
 
-ALTER TABLE forecasts ADD score DOUBLE PRECISION;
+ALTER TABLE forecasts RENAME COLUMN id to forecastid;
  
 # --- !Downs
 

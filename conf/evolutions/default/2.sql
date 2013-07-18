@@ -13,17 +13,17 @@ CREATE TABLE forecasts(
   id				SERIAL PRIMARY KEY,
   city				INT NOT NULL,
   date				DATE NOT NULL,
-  temperatureMin	DOUBLE PRECISION NOT NULL,
-  temperatureMax	DOUBLE PRECISION NOT NULL,
-  humidity			DOUBLE PRECISION NOT NULL,
-  probRain			DOUBLE PRECISION NOT NULL,
-  cloudyRatio		DOUBLE PRECISION NOT NULL,
+  temperatureMin	DOUBLE PRECISION,
+  temperatureMax	DOUBLE PRECISION,
+  humidity			DOUBLE PRECISION,
+  probRain			DOUBLE PRECISION,
+  cloudyRatio		DOUBLE PRECISION,
+  wind				DOUBLE PRECISION,
   summary			VARCHAR(255) NOT NULL,
   FOREIGN KEY       (city) REFERENCES cities(id)
 );
  
 # --- !Downs
  
- 
-DROP TABLE IF EXISTS cities;
 DROP TABLE IF EXISTS forecasts;
+DROP TABLE IF EXISTS cities CASCADE;
