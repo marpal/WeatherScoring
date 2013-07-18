@@ -25,6 +25,17 @@ object ForecastServices {
 	    }
 	  }
   }
+ 
+   def getAverageScore(forecasts: List[Forecast]): Double = {
+    forecasts.foldLeft(0.0)(_ + _.score) / forecasts.length
+  }
+
+  def getAllCitiesWithForecastsByTotalAvgScore = {
+
+    City.getAllCitiesWithForecasts.map {
+      case (key, value) => (key, getAverageScore(value), value)
+    }.toList.sortBy(_._2)
+  }
   
 
 }

@@ -14,11 +14,17 @@ object Forecasts extends Controller {
   
   def updateAll = Action {
 
+    Forecast.deleteAll
     val forecasts = ForecastServices.obtainForecasts
     val scoredForecasts = ForecastServices.calculateForecastsScores(forecasts)
-    println(scoredForecasts)
+    scoredForecasts.foreach(
+        forecast=>Forecast.insert(forecast)
+      )
     
     Ok(Json.toJson("Done"))
   }
+  
+  
+  
 
 }

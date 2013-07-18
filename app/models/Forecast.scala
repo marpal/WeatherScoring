@@ -4,6 +4,9 @@ import anorm._
 import play.api.Play.current
 import play.api.db._
 import java.util.Date
+import anorm.SqlParser._
+import anorm.~
+ import anorm.RowParser
 
 case class Forecast(
   id: Pk[Long],
@@ -24,7 +27,7 @@ object Forecast {
   def getAll: List[Forecast] = DB.withConnection {
     implicit connection => 
       sql().map(row => 
-        Forecast(row[Pk[Long]]("id"), row[Long]("city"), row[Date]("date"),row[Double]("temperatureMin"),
+        Forecast(row[Pk[Long]]("forecastid"), row[Long]("city"), row[Date]("date"),row[Double]("temperatureMin"),
           row[Double]("temperatureMax"),row[Double]("humidity"),row[Double]("probRain"), row[Double]("cloudyRatio"),
           row[Double]("wind"),row[String]("summary"),row[Double]("score"))).toList
   }
@@ -57,5 +60,35 @@ object Forecast {
         firstRow[Long]("c")
     }
   }
+  
+  
+ def deleteAll= {
+    DB.withConnection { 
+      implicit connection =>
+        SQL("delete from forecasts").executeUpdate()
+    }
+  }
+ 
+ 
+  val forecastParser: RowParser[Forecast] = {
+    get[Pk[Long]]("forecastid") ~
+    get[Long]("city") ~
+    get[Date]("date") ~
+    get[Double]("temperatureMin") ~
+    get[Double]("temperatureMax") ~
+    get[Double]("humidity") ~
+    get[Double]("probRain") ~
+    get[Double]("cloudyRatio") ~
+    get[Double]("wind") ~
+    get[String]("summary") ~
+    get[Double]("score")  map {
+        case id ~ city ~ date ~ temperatureMin
+        ~ temperatureMax ~ humidity ~ probRain
+        ~ cloudyRatio ~ wind ~ summary ~ score  =>
+          Forecast(id, city, date, temperatureMin,temperatureMax,
+              humidity,probRain,cloudyRatio,wind,summary,score)
+      }
+  }
+  
 
 }

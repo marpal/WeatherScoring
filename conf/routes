@@ -6,6 +6,7 @@
 GET    		/							controllers.Application.index
 
 GET     	/cities/all                 controllers.Cities.all
+GET     	/cities/best         		controllers.Cities.getBestCities
 DELETE     	/cities/all           		controllers.Cities.deleteAll
 POST     	/cities/all          		controllers.Cities.createAll
 

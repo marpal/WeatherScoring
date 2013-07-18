@@ -43,8 +43,9 @@ object ForecastIOProvider extends ForecastProvider {
 
         rawForecasts.map{
           rawForecast=>{
-            Forecast(NotAssigned,city.id.get,new java.util.Date(rawForecast.timeStamp),(rawForecast.temperatureMin - 32) / 9 * 5,
-                (rawForecast.temperatureMax - 32) / 9 * 5,rawForecast.humidity,rawForecast.precipProbability,
+            Forecast(NotAssigned,city.id.get,new java.util.Date(rawForecast.timeStamp * 1000),
+                (rawForecast.temperatureMin - 32) / 9 * 5,(rawForecast.temperatureMax - 32) / 9 * 5,
+                rawForecast.humidity,rawForecast.precipProbability,
                 rawForecast.cloudCover,rawForecast.windSpeed,rawForecast.icon,0)
           }
         } 

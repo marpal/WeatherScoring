@@ -35,7 +35,6 @@ object Cities extends Controller {
 
   def all = Action {
     val cities = City.getAll
-    ForecastServices.calculateForecastsScores(null)
     Ok(Json.toJson(cities))
   }
   
@@ -46,6 +45,12 @@ object Cities extends Controller {
   
   def createAll = Action {
     val cities = CityServices.initializeCities
+    Ok(Json.toJson("Done"))
+  }
+  
+  def getBestCities = Action {
+    val bestCities = ForecastServices.getAllCitiesWithForecastsByTotalAvgScore
+    println(bestCities)
     Ok(Json.toJson("Done"))
   }
   
